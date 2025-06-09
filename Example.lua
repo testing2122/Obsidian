@@ -1,4 +1,4 @@
--- example script by https://github.com/mstudio45/LinoriaLib/blob/main/Example.lua and modified by deivid
+-- example script by https://github.com/mstudio45/LinoriaLib/blob/main/Example.lua and modified by deividn
 -- You can suggest changes with a pull request or something
 
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
