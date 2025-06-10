@@ -4,10 +4,7 @@
 -- First load the main library
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/testing2122/Obsidian/main/Library.lua"))()
 
--- Then load the image/3D extension
-loadstring(game:HttpGet("https://raw.githubusercontent.com/testing2122/Obsidian/main/ImageRenderExtension.lua"))()
-
--- Create a window
+-- Create a window first
 local Window = Library:CreateWindow({
     Title = "Image & 3D Render Demo",
     Footer = "Obsidian Library with Image/3D Support",
@@ -19,6 +16,10 @@ local Window = Library:CreateWindow({
 local ImageTab = Window:AddTab("Image Display")
 local ModelTab = Window:AddTab("3D Models")
 
+-- Then load the image/3D extension (after window and tabs are created)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/testing2122/Obsidian/main/ImageRenderExtension.lua"))()
+
+-- Now we can use the image and 3D features
 -- Image Display Examples
 local ImageGroup = ImageTab:AddLeftGroupbox("Image Examples")
 
@@ -230,10 +231,30 @@ for name, id in pairs(ModelExamples) do
     end)
 end
 
+-- Test different image scale types
+local ScaleGroup = ImageTab:AddRightGroupbox("Scale Types")
+
+local ScaleTypes = {
+    "Fit",
+    "Crop", 
+    "Tile",
+    "Stretch"
+}
+
+for _, scaleType in pairs(ScaleTypes) do
+    ScaleGroup:AddButton("Set " .. scaleType, function()
+        ImageDisplay1:SetScaleType(Enum.ScaleType[scaleType])
+    end)
+end
+
 -- Cleanup when library unloads
 Library:OnUnload(function()
-    StandaloneImage:Destroy()
-    Standalone3D:Destroy()
+    if StandaloneImage then
+        StandaloneImage:Destroy()
+    end
+    if Standalone3D then
+        Standalone3D:Destroy()
+    end
 end)
 
 print("Image and 3D Rendering Demo loaded!")
@@ -244,3 +265,9 @@ print("- Customizable backgrounds and styling")
 print("- Standalone and groupbox-integrated displays")
 print("- Fade in/out animations for images")
 print("- Real-time controls for all parameters")
+print("")
+print("Usage:")
+print("1. Use the input boxes to change image URLs or model IDs")
+print("2. Toggle auto-rotation and adjust speeds for 3D models")
+print("3. Try the standalone displays with the toggle buttons")
+print("4. Experiment with different scale types for images")
